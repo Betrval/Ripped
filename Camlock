@@ -1,7 +1,10 @@
+local Toggled = false
+local KeyCode = 'x'
+
 getgenv().Prediction = 0.12167
 getgenv().AimPart = "HumanoidRootPart"	
-getgenv().Key = "Q"	
-getgenv().DisableKey = "P"	
+getgenv().Key = "V"	
+getgenv().DisableKey = "Z"	
 	
 getgenv().FOV = true	
 getgenv().ShowFOV = false	
