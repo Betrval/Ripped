@@ -59,7 +59,7 @@ game.StarterGui:SetCore(
 
 --- ui lib and shit ---
 
-    local Library = local Rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Rayfield/main/source"))()
+    local Rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Rayfield/main/source"))()
     local NotifyLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/Dynissimo/main/Scripts/AkaliNotif.lua"))()
     local Notify = NotifyLibrary.Notify
     Library.theme.accentcolor = Color3.fromRGB(255, 0, 0)
