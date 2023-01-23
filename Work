@@ -12,22 +12,117 @@ Section:NewButton("Silent Aim", "Turns On Silent Aim", function()
         print("Toggle Off")
     end
 end)
+Section:NewDropdown("DropdownText", "DropdownInf", {"Head", "HumanoidRootPart", "Lower Torso"}, function(currentOption)
+    print(currentOption)
+      local Aiming = loadstring(game:HttpGet("https://raw.githubusercontent.com/strongprime/wdabnudbawydbwahudbwoayudbwadwadwadwadawdwaddddddddddwaddddwadwadad/main/WAIJDBWAUHDBWYAGDVAWYGVDYFGWAVDTYFWAVDWADWADAWDA"))()
+                            Aiming.TeamCheck(true)
+                             
+                            
+                            local Workspace = game:GetService("Workspace")
+                            local Players = game:GetService("Players")
+                            local RunService = game:GetService("RunService")
+                            local UserInputService = game:GetService("UserInputService")
+                            
+                            
+                            local LocalPlayer = Players.LocalPlayer
+                            local Mouse = LocalPlayer:GetMouse()
+                            local CurrentCamera = Workspace.CurrentCamera
+                            
+                            local DaHoodSettings = {
+                                SilentAim = true,
+                                AimLock = false,
+                                Prediction = 0.131,
+                                AimLockKeybind = Enum.KeyCode.E
+                            }
+                            getgenv().DaHoodSettings = DaHoodSettings
+                            
+                            
+                            function Aiming.Check()
+                            -------------
+                                if not (Aiming.Enabled == true and Aiming.Selected ~= LocalPlayer and Aiming.SelectedPart ~= nil) then
+                                    return false
+                                end
+                            
+                                -- // Check if downed
+                                local Character = Aiming.Character(Aiming.Selected)
+                                local KOd = Character:WaitForChild("BodyEffects")["K.O"].Value
+                                local Grabbed = Character:FindFirstChild("GRABBING_CONSTRAINT") ~= nil
+                            
+                                -- // Check B
+                                if (KOd or Grabbed) then
+                                    return false
+                                end
+                            
+                                -- //
+                                return true
+                            end
+                            
+                            -- // Hook
+                            local __index
+                            __index = hookmetamethod(game, "__index", function(t, k)
+                                -- // Check if it trying to get our mouse's hit or target and see if we can use it
+                                if (t:IsA("Mouse") and (k == "Hit" or k == "Target") and Aiming.Check()) then
+                                    local SelectedPart = Aiming.SelectedPart
+                            
+                                    -- // Hit/Target
+                                    if (DaHoodSettings.SilentAim and (k == "Hit" or k == "Target")) then
+                                        -- // Hit to account prediction
+                                        local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
+                            
+                                        -- // Return modded val
+                                        return (k == "Hit" and Hit or SelectedPart)
+                                    end
+                                end
+                            
+                                -- // Return
+                                return __index(t, k)
+                            end)
+                            
+                            -- // Aimlock
+                            RunService:BindToRenderStep("AimLock", 0, function()
+                                if (DaHoodSettings.AimLock and Aiming.Check() and UserInputService:IsKeyDown(DaHoodSettings.AimLockKeybind)) then
+                                    -- // Vars
+                                    local SelectedPart = Aiming.SelectedPart
+                            
+                                    -- // Hit to account prediction
+                                    local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
+                            
+                                    CurrentCamera.CFrame = CFrame.lookAt(CurrentCamera.CFrame.Position, Hit.Position)
+                                end
+                                end)
 
-Section:NewSlider("fov ", "SliderInfo", 100, 1, function(s) 
-Fov = 1
+DaHoodSettings.Prediction = 0
+
+getgenv().Aiming.TargetPart = {"Head", "HumanoidRootPart", "LowerTorso"}
+
+getgenv().Aiming.HitChance = 1
+
+getgenv().Aiming.ShowFOV = false
+
+getgenv().Aiming.FOV = 1
 end)
 
-Section:NewSlider("SliderText", "SliderInfo", 100, 1, function(s) 
-Prediction = 0.148357
+
+Section:NewSlider("Prediction ", "Tbh Idrk", 100, 0, function(s) 
+DaHoodSettings.Prediction = 0
+end)
+
+Section:NewSlider("Hitchance", "increases/Deincreases The chance to hit ", 100, 1, function(s) 
+getgenv().Aiming.HitChance = 1
+end)
+
+Section:NewSlider("Fov", "increases/Deincreases The chance to hit ", 100, 1, function(s) 
+getgenv().Aiming.FOV = 1
 end)
 
 -- Lock --
 local Tab = Window:NewTab("Lock")
 local Section = Tab:NewSection(" ")
 Section:NewButton("Lock", "Enables Lock", function()
-    
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Betrval/Ripped/main/Camlock"))()
 end)
 --Misc
+
 local Tab = Window:NewTab("Misc")
 local Section = Tab:NewSection("Client Sided")
 
@@ -42,7 +137,7 @@ local ply = game.Players.LocalPlayer
          chr.RightFoot.Transparency = "1"
      end)
     
- Section:NewButton("Reslover", "Fixes Anti Lock", function()
+ Section:NewButton("Headless", "Gives You Headless", function()
                 game.Players.LocalPlayer.Character.Head.Transparency = 1
                 for i,v in pairs(game.Players.LocalPlayer.Character.Head:GetChildren()) do
                 if (v:IsA("Decal")) then
@@ -51,7 +146,7 @@ local ply = game.Players.LocalPlayer
                 end
 end)
 
-Section:NewButton("Headless", "Gives You Headless", function()
+Section:NewButton("Resolver", "Can Still Lock/Silent while The Person Turns On Anti", function()
 local RunService = game:GetService("RunService")
 
 RunService.Heartbeat:Connect(function()
@@ -65,5 +160,13 @@ RunService.Heartbeat:Connect(function()
         end
     end)
 end)
+end)
 
+Section:NewButton("ColorCorrection", "Makes Your Game Look Better", function()
+local l = game:GetService("Lighting")
+
+local col = Instance.new("ColorCorrectionEffect", l)
+col.Brightness = 0
+col.Contrast = 0.01
+col.Saturation = 0.67
 end)
