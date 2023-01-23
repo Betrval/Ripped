@@ -1,0 +1,69 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("HeadlessWare")
+local Tab = Window:NewTab("Silent Aim 1")
+local Section = Tab:NewSection(" ")
+
+
+Section:NewButton("Silent Aim", "Turns On Silent Aim", function()
+   if state then
+ 
+        print("Toggle On")
+    else
+        print("Toggle Off")
+    end
+end)
+
+Section:NewSlider("fov ", "SliderInfo", 100, 1, function(s) 
+Fov = 1
+end)
+
+Section:NewSlider("SliderText", "SliderInfo", 100, 1, function(s) 
+Prediction = 0.148357
+end)
+
+-- Lock --
+local Tab = Window:NewTab("Lock")
+local Section = Tab:NewSection(" ")
+Section:NewButton("Lock", "Enables Lock", function()
+    
+end)
+--Misc
+local Tab = Window:NewTab("Misc")
+local Section = Tab:NewSection("Client Sided")
+
+Section:NewButton("Korblox", "Gives You Korblox", function()
+local ply = game.Players.LocalPlayer
+ local chr = ply.Character
+  chr.RightLowerLeg.MeshId = "902942093"
+   chr.RightLowerLeg.Transparency = "1"
+    chr.RightUpperLeg.MeshId = "http://www.roblox.com/asset/?id=902942096"
+     chr.RightUpperLeg.TextureID = "http://roblox.com/asset/?id=902843398"
+       chr.RightFoot.MeshId = "902942089"
+         chr.RightFoot.Transparency = "1"
+     end)
+    
+ Section:NewButton("Reslover", "Fixes Anti Lock", function()
+                game.Players.LocalPlayer.Character.Head.Transparency = 1
+                for i,v in pairs(game.Players.LocalPlayer.Character.Head:GetChildren()) do
+                if (v:IsA("Decal")) then
+                v:Destroy()
+                end
+                end
+end)
+
+Section:NewButton("Headless", "Gives You Headless", function()
+local RunService = game:GetService("RunService")
+
+RunService.Heartbeat:Connect(function()
+    pcall(function()
+        for i,v in pairs(game.Players:GetChildren()) do
+            if v.Name ~= game.Players.LocalPlayer.Name then
+                local hrp = v.Character.HumanoidRootPart
+                hrp.Velocity = Vector3.new(hrp.Velocity.X, 0, hrp.Velocity.Z)    
+                hrp.AssemblyLinearVelocity = Vector3.new(hrp.Velocity.X, 0, hrp.Velocity.Z)   
+            end
+        end
+    end)
+end)
+
+end)
