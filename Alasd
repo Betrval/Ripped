@@ -1,0 +1,2 @@
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/Betrval/Ripped/main/Silentpt1"))() -- Silent pt1
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/Betrval/Ripped/main/Silentpt2"))() -- Silent Pt2
